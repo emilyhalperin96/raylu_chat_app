@@ -2,13 +2,18 @@ from flask import request, jsonify
 from flask_restful import Resource
 import openai
 from datetime import datetime
+import os 
+from dotenv import load_dotenv
 
 # Local imports
 from config import app, db, api
 from models import User, Conversation, Message, UserChatHistory
 
+# Load environment variables from .env
+load_dotenv()
+
 # Initialize the OpenAI API key
-openai.api_key = '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'
+openai.api_key = os.getenv('API_KEY')
 
 @app.route('/')
 def root():
