@@ -1,8 +1,9 @@
+import openai
+import os 
+
 from flask import request, jsonify
 from flask_restful import Resource
-import openai
 from datetime import datetime
-import os 
 from dotenv import load_dotenv
 
 # Local imports
