@@ -19,6 +19,7 @@ openai.api_key = os.getenv('API_KEY')
 def root():
     return ''
 
+# Sign in Post Request 
 @app.route('/signin', methods=['POST'])
 def signup():
     data = request.get_json()
@@ -30,6 +31,7 @@ def signup():
     db.session.commit()
     return jsonify(new_user.to_dict())
 
+# Send and Recieve messages from OpenAI
 @app.route('/chatbot', methods=['POST'])
 def chatbot():
     user_input = request.json.get('user_input')
@@ -49,16 +51,13 @@ def get_response_from_chatbot(user_input):
     ).choices[0].text
     return response
 
-# route to handle user chat interactions
+# Handle Conversation
 @app.route('/conversation', methods=['POST'])
 def handle_conversataion():
     data = request.get_json()
     user_id = data.get('user_id')
     conversation_id = data.get('conversation_id')
     message_text = data.get('message_text')
-    print(user_id)
-    print(conversation_id)
-    print(message_text)
 
     if not user_id or not conversation_id or not message_text:
         return jsonify({"error": "Invalid request"}), 400
@@ -81,16 +80,13 @@ def handle_conversataion():
     db.session.add(new_message)
     db.session.commit()
 
-    # Update user's chat history with the timestamp of the last message
+    # Update user's chat history with timestamp of the last message
     user_chat_history = UserChatHistory.query.filter_by(
         user_id=user_id, conversation_id=conversation_id
     ).first()
     if user_chat_history:
         user_chat_history.last_message_timestamp = datetime.utcnow()
         db.session.commit()
-
-
-
 
     return jsonify({"message": "Message sent successfully"})
 
@@ -99,7 +95,7 @@ def handle_conversataion():
 def get_messages_in_conversation(conversation_id):
     # Retrieve the conversation and associated messages
     conversation = Conversation.query.get(conversation_id)
-    print(conversation)
+
     if not conversation:
         return jsonify({"error": "Conversation not found"}), 404
 
@@ -115,8 +111,6 @@ def get_user_chat_history(user_id):
     user_chat_history = UserChatHistory.query.filter_by(user_id=user_id).all()
     chat_history_data = [history.to_dict() for history in user_chat_history]
     return jsonify(chat_history_data)
-
-
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)

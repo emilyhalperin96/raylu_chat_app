@@ -13,7 +13,7 @@ class User(db.Model):
             'name': self.name,
             'username': self.username
         }
-# individual messages within a conversation 
+
 class Message(db.Model):
     __tablename__ = 'messages'
     id = db.Column(db.Integer, primary_key=True)
@@ -35,7 +35,6 @@ class Message(db.Model):
              'user_chat_history_id': self.user_chat_history_id
         }
     
-# conversation, collection of msg between 2 users 
 class Conversation(db.Model):
     __tablename__ = 'conversations'
     id = db.Column(db.Integer, primary_key=True)
@@ -52,7 +51,6 @@ class Conversation(db.Model):
             'user2_id': self.user2_id
         }
 
-
 class UserChatHistory(db.Model):
     __tablename__ = 'user_chat_history'
     id = db.Column(db.Integer, primary_key=True)
@@ -68,3 +66,5 @@ class UserChatHistory(db.Model):
             'conversation_id': self.conversation_id,
             'last_message_timestamp': self.last_message_timestamp.isoformat(),
         }
+
+
