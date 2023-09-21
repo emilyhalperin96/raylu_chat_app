@@ -1,5 +1,3 @@
-# raylu_chat_app
-
 # INSTRUCTIONS 
 
   # Clone Repository 
