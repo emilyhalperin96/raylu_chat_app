@@ -2,7 +2,7 @@
 
 Clone Repository
 
-  clone the repository into your local directory:
+    clone the repository into your local directory:
   
       # git clone <repository_url>
 
