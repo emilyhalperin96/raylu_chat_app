@@ -4,17 +4,17 @@ import os
 from flask import request, jsonify
 from flask_restful import Resource
 from datetime import datetime
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
 # Local imports
 from config import app, db, api
 from models import User, Conversation, Message, UserChatHistory
 
 # Load environment variables from .env
-load_dotenv()
+#load_dotenv()
 
 # Initialize the OpenAI API key
-openai.api_key = os.getenv('API_KEY')
+#openai.api_key = os.getenv('API_KEY')
 
 @app.route('/')
 def root():
